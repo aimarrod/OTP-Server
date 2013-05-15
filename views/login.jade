@@ -1,0 +1,9 @@
+extend layout
+block content
+	p Enter your username and one time key
+	input(type="text", name="user_name", placeholder="Username")
+	input(type="text", name="user_key", placeholder="Password")
+block sidebar
+	.widget
+		button#resync Synchronize
+	

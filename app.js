@@ -34,9 +34,13 @@ app.get('/auth', function(req, res){
 });
 
 
-app.get('/try', function(req, res) {
+app.get('/register', function(req, res) {
 	res.send("Hello world");
 	console.log("GET /try");
+});
+
+app.get('/resync/:name', function(req, res){
+	res.send("Resyncronization for user with name: " + req.params.name);	
 });
 
 app.listen(3000);

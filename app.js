@@ -1,4 +1,4 @@
-/*global require __dirname static console */
+/*global require __dirname console */
 
 
 var express = require('express'),
@@ -27,8 +27,9 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/auth', function(req, res){
-  	var key = res.query["key"];
-	var user = res.query["name"];
+  	var key = req.query["key"];
+	var user = req.query["user"];
+	res.send("name is " + user + " and key is " + key);
 	//seguir la autenticacion
 });
 

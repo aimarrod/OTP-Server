@@ -30,7 +30,12 @@ module.exports.get_user = function(name, callback){
 			}
 		});	
 	}
-	return patt.test(name);
+};
+	
+module.exports.close = function(err){
+	connection.end(function(err){
+		console.log(err);
+	});
 };
 
 

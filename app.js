@@ -3,7 +3,9 @@
 
 var express = require('express'),
 	stylus = require('stylus'),
-	nib = require('nib');
+	nib = require('nib'),
+	db_connection = require('./modules/db_connection.js');
+
 
 var app = express();
 function compile(str, path){
@@ -35,8 +37,9 @@ app.get('/auth', function(req, res){
 
 
 app.get('/register', function(req, res) {
-	res.send("Hello world");
-	console.log("GET /try");
+	db_connection.get_user('aimar', function(username){
+		res.send(username);
+	});
 });
 
 app.get('/resync/:name', function(req, res){

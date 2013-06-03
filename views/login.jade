@@ -8,6 +8,7 @@ html
 		.container
 			form.form-signin(action='/auth/')
 				h2.form-signin-heading Sign In
-					input.input-block-level(type='text', placeholder='User name', name="user")
-					input.input-block-level(type='text', placeholder='Key', name="key")
-					button.btn.btn-large.btn-primary(type='submit') Sign in
+				input.input-block-level(type='text', placeholder='User name', name="user")
+				input.input-block-level(type='text', placeholder='Key', name="key")
+				button.btn.btn-large.btn-success(type='submit') Sign in
+				a.btn.btn-large.pull-right(href="/register/") Register

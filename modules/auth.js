@@ -8,6 +8,9 @@ module.exports.check = function(user, res){
 		//Generate hmac and all the process.
 		console.log(user);
 		var hc = crypto.createHmac('sha1', user.passphrase).update(user.counter).digest('hex');
+		//
+		//Metodo de truncado
+		//
 		res.end(hc);
 	});
 };

@@ -1,13 +1,13 @@
-extend layout
-block content
-	p Introduce username and generated key
-	from
-		key Username
-			input(type="text", name="name", placeholder="name")
-		key Key
-			input(type="text", name="key", placeholder="key")
-block sidebar
-	.widget
-		h1 Other
-		a.link(href="/register") register
-			
+html
+	head
+		title #{title} - OTP Validator
+		link(rel='stylesheet', href='/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/css/login.css')
+		script(src='/js/bootstrap.min.js')
+	body
+		.container
+			form.form-signin(action='/auth/')
+				h2.form-signin-heading Sign In
+					input.input-block-level(type='text', placeholder='User name', name="user")
+					input.input-block-level(type='text', placeholder='Key', name="key")
+					button.btn.btn-large.btn-primary(type='submit') Sign in

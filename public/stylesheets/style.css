@@ -123,9 +123,9 @@ header {
    * variable and the `darken` function
 
    */
-  background-color: #fa5b4d;
-  border-bottom: 1px solid #df1806;
-  text-shadow: 0px -1px 0px #df1806;
+  background-color: #5afb4d;
+  border-bottom: 1px solid #15e105;
+  text-shadow: 0px -1px 0px #15e105;
 }
 .container {
   width: 500px;

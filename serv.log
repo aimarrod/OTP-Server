@@ -1,0 +1,4 @@
+Arguments: node,/usr/lib/node_modules/scripted/node_modules/serv/static-server.js,8000,/home/aimar/Development/Web/OTP_server
+Serving files from /home/aimar/Development/Web/OTP_server at 127.0.0.1:8000
+LiveReload server listening on port 35729.
+Shutting down...

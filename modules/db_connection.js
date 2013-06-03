@@ -18,15 +18,16 @@ connection.query('use otp', function(err){
 	}
 });
 
-module.exports.get_user = function(name, callback){
+module.exports.get_user = function(name, res, callback){
 	var patt = /^[a-z0-9]+$/;
+
 	if(patt.test(name)){
 		connection.query('SELECT * FROM users WHERE name = ?' ,name, function(err, results){
 			if(err){
 				console.log(err);
-				callback(err);
+				res.end(err);
 			} else {
-				callback(results[0].name);
+				callback(results[0] ,res);
 			}
 		});	
 	}

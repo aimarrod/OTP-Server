@@ -1,9 +1,13 @@
 extend layout
 block content
-	p Enter your username and one time key
-	input(type="text", name="user_name", placeholder="Username")
-	input(type="text", name="user_key", placeholder="Password")
+	p Introduce username and generated key
+	from
+		key Username
+			input(type="text", name="name", placeholder="name")
+		key Key
+			input(type="text", name="key", placeholder="key")
 block sidebar
 	.widget
-		button#resync Synchronize
-	
+		h1 Other
+		a.link(href="/register") register
+			

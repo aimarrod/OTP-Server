@@ -4,7 +4,8 @@
 var express = require('express'),
 	stylus = require('stylus'),
 	nib = require('nib'),
-	db_connection = require('./modules/db_connection.js');
+	db_connection = require('./modules/db_connection.js'),
+	auth = require('./modules/auth');
 
 
 var app = express();
@@ -22,7 +23,7 @@ app.use(stylus.middleware(
 ));
 app.use(express.static(__dirname + '/public')); //Se accede estaticamente mediante url a contenidos en /public, por ejemplo con la url /images/ex1/jpg se accede a carpeta_web/public/images/ex1.jpg
 
-app.get('/login', function(req, res) {
+app.get(/^\/(login)?$/, function(req, res) {
 	res.render('login',
 	{ title: 'Home' }
 	);
@@ -37,9 +38,7 @@ app.get('/auth', function(req, res){
 
 
 app.get('/register', function(req, res) {
-	db_connection.get_user('aimar', function(username){
-		res.send(username);
-	});
+	auth.check('aimar', res);
 });
 
 app.get('/resync/:name', function(req, res){

@@ -2,7 +2,7 @@ if [ $# != 1 -a $# != 2 ]; then
 	echo "Usage: ./create_db mysql_username [mysql_password]"
 	exit
 fi
-mysql -u $1 -p $2 << EOF
+mysql -u $1 -p$2 << EOF
 
 CREATE DATABASE otp;
 

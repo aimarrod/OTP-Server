@@ -4,9 +4,11 @@
 var express = require('express'),
 	stylus = require('stylus'),
 	nib = require('nib'),
-	db_connection = require('./modules/db_connection.js'),
-	auth = require('./modules/auth');
-
+//	db_connection = require('./modules/db_connection.js'),
+	auth = require('./modules/auth'),
+    controller = require('./modules/controller');
+   
+   
 
 var app = express();
 function compile(str, path){
@@ -19,15 +21,21 @@ app.use(express.logger('dev'));
 
 app.use(express.static(__dirname + '/public')); //Se accede estaticamente mediante url a contenidos en /public, por ejemplo con la url /images/ex1/jpg se accede a carpeta_web/public/images/ex1.jpg
 
+app.use(express.cookieParser());
+app.use(express.session({secret: "Just a key to be hashed" }));
+
 app.get(/^\/(login)?$/, function(req, res) {
-	res.render('login',
-	{ title: 'Home' }
-	);
+    if(req.session.logged){
+        
+    } else {
+        controller.render_login(res);
+    }
 });
 
 app.get('/auth', function(req, res){
-  	var key = req.query["key"];
-	var user = req.query["user"];
+    var key = req.query.key;
+	var user = req.query.user;
+    req.session.logged = true;
 	res.send("name is " + user + " and key is " + key);
 	//seguir la autenticacion
 });
@@ -41,4 +49,4 @@ app.get('/resync/:name', function(req, res){
 	res.send("Resyncronization for user with name: " + req.params.name);	
 });
 
-app.listen(3000);
+app.listen(8080);

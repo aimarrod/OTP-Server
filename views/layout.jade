@@ -1,28 +1,25 @@
 html
-	head
-		title #{title} - OTP Validator
-		link(rel='stylesheet', href='/css/bootstrap.min.css')
-		script(src='/js/bootstrap.min.js')
-	body
-		header.navbar.navbar-inverse.navbar-fixed-top
-			.navbar-inner
-				.container
-					button.btn.btn-navbar(type='button', data-toogle='collapse', data-target='.nav-collapse')
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-					a.brand(href="/") HOTP Validator
-					.nav-collapse.collapse
-						ul.nav
-							li 
-								a(href='#') Home
-							li 
-								a(href='/resync') resyncronize
-				
-		#wrap
-			.container
-				block content
-			#push
-		#footer
-			.container
-				p.muted.credit Project for Information Security course 2013
+    head
+        title #{title} - OTP Validator
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/main.css')
+        link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
+        script(src='http://code.jquery.com/jquery.js')
+        script(src='/js/bootstrap.min.js')
+    body
+        div.navbar.navbar-inverse.navbar-fixed-top
+            .navbar-inner
+                .container
+                    button.btn.btn-navbar.collapsed(type='button', data-toggle='collapse', data-target='.nav-collapse')
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.brand(href="/") HOTP Validator
+                    .nav-collapse.collapse(style='height: 0px;')
+                        ul.nav
+                            li 
+                                a(href='/') Home
+                            li 
+                                a(href='/resync') resyncronize		
+        .container
+            block content	

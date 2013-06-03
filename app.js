@@ -26,18 +26,16 @@ app.use(express.session({secret: "Just a key to be hashed" }));
 
 app.get(/^\/(login)?$/, function(req, res) {
     if(req.session.logged){
-        
+        controller.render_homepage(req, res);
     } else {
         controller.render_login(res);
     }
 });
 
 app.get('/auth', function(req, res){
-    var key = req.query.key;
-	var user = req.query.user;
     req.session.logged = true;
-	res.send("name is " + user + " and key is " + key);
-	//seguir la autenticacion
+    req.session.user = req.query.user;
+    controller.render_homepage(req, res);
 });
 
 

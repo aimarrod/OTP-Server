@@ -18,6 +18,26 @@ connection.query('use otp', function(err){
 	}
 });
 
+module.exports.store_user = function(name, password, seed, sequence_number, req, res){
+    var patt = /^[a-z0-9]+$/;
+    
+    if(patt.test(name) && password.length > 8){
+        connection.query('INSERT INTO users VALUES(?, ?, ?, ?)', [name, password, seed, sequence_number], function(err){
+            if(err){
+                console.log(err);
+                res.end("ERROR\n" + err);
+            } else {
+                req.session.logged = true;
+                req.session.user = name;
+                res.redirect("/");
+            }
+        });
+        
+    } else {
+        res.end("Invalid user or pass");   
+    }
+};
+
 module.exports.get_user = function(name, res, callback){
 	var patt = /^[a-z0-9]+$/;
 

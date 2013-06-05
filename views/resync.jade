@@ -1,0 +1,8 @@
+extends layout
+    
+block content
+    h2 Resyncronization
+    p Please input a need seed.
+    form.form-signin(action='/auth/')
+        input.input-block-level(type='text', placeholder='Seed', name="seed")
+        button.btn.btn-large.btn-success(type='submit') Resync

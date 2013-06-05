@@ -1,0 +1,14 @@
+html
+    head
+        title #{title} - OTP Validator
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/login.css')
+        script(src='/js/bootstrap.min.js')
+    body
+        .container
+            form.form-signin(action='/store/')
+                h2.form-signin-heading Register
+                input.input-block-level(type='text', placeholder='User name', name="user")
+                input.input-block-level(type='password', placeholder='Password',name="pass")
+                button.btn.btn-large.btn-success(type='submit') Register
+                a.btn.btn-large.pull-right(href="/") Back

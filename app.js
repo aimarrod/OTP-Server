@@ -43,10 +43,8 @@ app.get(/resync/, function(req, res) {
 });
 
 app.get(/auth/, function(req, res){
-    // Redirigir a donde se autentique, y despues redirigir a la pagina de home
-    req.session.logged = true;
     req.session.user = req.query.user;
-    res.redirect("/");
+    controller.authenticate(req,res);
 });
 
 

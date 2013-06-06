@@ -1,0 +1,10 @@
+html
+    head
+        title #{title} - OTP Validator
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/login.css')
+        script(src='/js/bootstrap.min.js')
+    body
+        .container
+            h4 #{ error }
+            a.btn.btn-danger.pull-right(href="/") Back

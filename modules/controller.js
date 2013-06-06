@@ -8,9 +8,7 @@ module.exports.render_login = function(res){
 };
 
 module.exports.render_homepage = function(req, res){
-    res.render('homepage',
-    { name: req.session.user, title: 'Home' }
-    );
+    mysql.user_homepage(req, res);
 };
 
 module.exports.render_resync = function(req, res){
@@ -32,6 +30,18 @@ module.exports.store_user = function(req, res){
         sequence_number = Math.floor(Math.random()*500) + 200;
         mysql.store_user(name, pass, seed, sequence_number, req, res);
 };
+
+module.exports.authenticate = function(req, res){
+    var user = req.query.user,
+        key = req.query.key;
+    auth.check(user, key, req, res); 
+};
+
+module.exports.render_error = function(res, msg){
+    res.render('error',
+    { error : msg, title : "error" }
+    );
+}
 
 var random_string = function(){
     var chars = "abcdefghijklmnopqrstuvwxyz";

@@ -24,10 +24,19 @@ app.use(express.logger('dev'));
 app.use(express.static(__dirname + '/public')); 
 
 app.use(express.cookieParser());
-app.use(express.session({secret: "Just a key to be hashed" }));
+app.use(express.session(
+        {secret: "Just a key to be hashed" 
+        , cookie: { 
+            maxAge: 30 * 1000 
+        }
+      }));
 
 app.get(/^\/(login)?$/, function(req, res) {
-    if(req.session.logged){
+    if(req.session.throttling > 2){
+        controller.render_error(res, "Too many failed attepms");    
+    } else if(req.session.logged){
+        req.session.logged = true;
+        req.session.user = req.session.user;
         controller.render_homepage(req, res);
     } else {
         controller.render_login(res);
@@ -35,21 +44,33 @@ app.get(/^\/(login)?$/, function(req, res) {
 });
 
 app.get(/resync/, function(req, res) {
-    if(req.session.logged){
+    if(req.session.throttling > 2){
+        controller.render_error(res, "Too many failed attepms");    
+    } else if(req.session.logged){
         controller.render_resync(req, res);
+        req.session.logged = true;
+        req.session.user = req.session.user;
     } else {
         res.redirect("/");
     }
 });
 
 app.get(/auth/, function(req, res){
-    req.session.user = req.query.user;
-    controller.authenticate(req,res);
+    if(req.session.throttling > 2){
+        controller.render_error(res, "Too many failed attepms");    
+    } else {req.session.user = req.query.user;
+        controller.authenticate(req,res);
+    }
 });
 
 
 app.get(/register/, function(req, res) {
-	if(req.session.logged){
+	if(req.session.throttling > 2){
+        console.log(req.session.throttling);
+        controller.render_error(res, "Too many failed attepms");    
+    } else if(req.session.logged){
+        req.session.logged = true;
+        req.session.user = req.session.user;
         res.redirect("/");
 	} else {
         controller.render_register(res);   
@@ -57,7 +78,11 @@ app.get(/register/, function(req, res) {
 });
 
 app.get(/store/, function(req, res){
-    if(req.session.logged){
+    if(req.session.throttling > 2){
+        controller.render_error(res, "Too many failed attepms");    
+    } else if(req.session.logged){
+        req.session.logged = true;
+        req.session.user = req.session.user;
         res.redirect("/");
     } else {
         controller.store_user(req, res);
@@ -67,6 +92,18 @@ app.get(/store/, function(req, res){
 app.get(/logout/, function(req, res){
     req.session.logged = false;
     res.redirect("/");
+});
+
+app.get(/res/, function(req, res){
+    if(req.session.throttling > 2){
+        controller.render_error(res, "Too many failed attepms");    
+    } else if(req.session.logged){
+        req.session.logged = true;
+        req.session.user = req.session.user;
+        controller.change_seed(req, res);
+    } else {
+        controller.redirect("/");
+    }
 });
 
 

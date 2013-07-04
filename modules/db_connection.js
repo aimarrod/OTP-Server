@@ -58,7 +58,30 @@ module.exports.get_user = function(name, res, callback){
 	}
 };
 
-// TODO
+module.exports.decrement = function(name, res){
+    connection.query('UPDATE otp.users SET sequence_number=(SELECT sequence_number FROM (SELECT * FROM users where name = ?) AS x)-1 WHERE name = ?' ,[name, name], function(err){
+        if(err){
+            console.log("Error updating sequence number");
+            console.log(err);
+            res.redirect('/resync');
+        } else {
+            res.redirect("/");    
+        }
+    });
+};
+
+module.exports.change_seed = function(name, seq, seed, res){
+    connection.query('UPDATE otp.users SET seed=?,sequence_number=? WHERE name = ?' ,[seed, seq, name], function(err){
+        if(err){
+            console.log("Error updating seed");
+            console.log(err);
+            controller.render_error(res, "Unable to update seed");
+        } else {
+            res.redirect("/");    
+        }
+    });
+};
+
 module.exports.user_homepage = function(req, res){
     connection.query('SELECT * FROM users WHERE name = ?' ,req.session.user, function(err, results){
     	if(err){

@@ -41,7 +41,20 @@ module.exports.render_error = function(res, msg){
     res.render('error',
     { error : msg, title : "error" }
     );
-}
+};
+
+module.exports.change_seed = function(req, res){
+    var patt = /^[a-z0-9]+$/,
+        seed = req.query.seed,
+        sequence_number = Math.floor(Math.random()*500) + 200;
+
+    
+    if(seed == '%' || !patt.test(seed)){
+        seed = random_string();
+    }      
+    
+    mysql.change_seed(req.session.user, sequence_number, seed, res);
+};
 
 var random_string = function(){
     var chars = "abcdefghijklmnopqrstuvwxyz";
@@ -56,3 +69,4 @@ var random_string = function(){
     
     return str;
 };
+
